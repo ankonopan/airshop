@@ -24,7 +24,8 @@ defmodule AirShop.MixProject do
     [
       {:soap, "~> 1.0"},
       {:xml_builder, "~> 2.1.1"},
-      {:sweet_xml, "~> 0.6.6"}
+      {:sweet_xml, "~> 0.6.6"},
+      {:poolboy, "~> 1.5.1"}
     ]
   end
 end

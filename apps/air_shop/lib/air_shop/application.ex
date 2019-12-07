@@ -8,10 +8,16 @@ defmodule AirShop.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: AirShop.Worker.start_link(arg)
-      {AirShop.AirFrance.Worker,
+      {AirShop.AirFrance.Application,
        %{
-         endpoint: Application.fetch_env!(:air_shop, :airfranceklm)[:endpoint],
-         api_key: Application.fetch_env!(:air_shop, :airfranceklm)[:api_key]
+         pool: %{
+           size: Application.fetch_env!(:air_shop, :airfranceklm)[:pool_size],
+           max_overflow: Application.fetch_env!(:air_shop, :airfranceklm)[:pool_max_overflow]
+         },
+         worker: %{
+           endpoint: Application.fetch_env!(:air_shop, :airfranceklm)[:endpoint],
+           api_key: Application.fetch_env!(:air_shop, :airfranceklm)[:api_key]
+         }
        }}
     ]
 

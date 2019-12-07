@@ -3,7 +3,7 @@ defmodule AirShop.AirFrance.Worker do
   use GenServer
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, name: __MODULE__)
+    GenServer.start_link(__MODULE__, args)
   end
 
   @spec init(map) :: tuple
@@ -12,12 +12,17 @@ defmodule AirShop.AirFrance.Worker do
   end
 
   @spec handle_call(tuple, tuple, map) :: tuple
-  def handle_call({:search, departure, arrival, date}, from, state) do
-    {:ok, %HTTPoison.Response{body: body}} =
-      Client.build(state[:endpoint], state[:api_key])
-      |> Client.search(departure, arrival, date)
-      |> Client.call()
+  def handle_call({:search, departure, arrival, date}, _from, state) do
+    try do
+      {:ok, %HTTPoison.Response{body: body}} =
+        Client.build(state[:endpoint], state[:api_key])
+        |> Client.search(departure, arrival, date)
+        |> Client.call()
 
-    {:reply, body, state}
+      {:reply, {:ok, body}, state}
+    catch
+      x ->
+        {:stop, :server_error, {:error, "<h1>#{x}</h1>"}, state}
+    end
   end
 end
