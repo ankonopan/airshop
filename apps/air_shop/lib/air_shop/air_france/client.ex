@@ -11,6 +11,7 @@ defmodule AirShop.AirFrance.Client do
     iex> req[:headers][:api_key]
     "an api key"
   """
+  @spec build(String.t(), String.t()) :: map
   def build(endpoint, api_key) do
     %{
       endpoint: endpoint,
@@ -31,6 +32,7 @@ defmodule AirShop.AirFrance.Client do
     iex> String.match?(search_req[:body], ~r"TXL")
     true
   """
+  @spec search(map, String.t(), String.t(), String.t()) :: map
   def search(%{endpoint: e, headers: h}, departure, arrival, date) do
     b =
       Request.build(departure, arrival, date)
@@ -42,6 +44,7 @@ defmodule AirShop.AirFrance.Client do
   @doc """
   Calls the API request on Air France endpoint
   """
+  @spec call(map) :: map
   def call(%{endpoint: e, headers: h, body: b}) do
     HTTPoison.post(e, b, h)
   end

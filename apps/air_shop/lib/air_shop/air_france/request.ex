@@ -8,6 +8,7 @@ defmodule AirShop.AirFrance.Request do
     iex> String.match?(xml_map, ~r"TXL(\s*)?</AirportCode>") && String.match?(xml_map, ~r"LHR(\s*)?</AirportCode>")
     true
   """
+  @spec build(String.t(), String.t(), String.t()) :: tuple
   def build(departure, arrival, date) do
     {"soapenv:Envelope", [{"xmlns:soapenv", "http://schemas.xmlsoap.org/soap/envelope/"}],
      [

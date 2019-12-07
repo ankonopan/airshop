@@ -8,7 +8,11 @@ defmodule AirShop.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: AirShop.Worker.start_link(arg)
-      # {AirShop.Worker, arg}
+      {AirShop.AirFrance.Worker,
+       %{
+         endpoint: Application.fetch_env!(:air_shop, :airfranceklm)[:endpoint],
+         api_key: Application.fetch_env!(:air_shop, :airfranceklm)[:api_key]
+       }}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
