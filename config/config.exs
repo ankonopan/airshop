@@ -9,10 +9,12 @@
 # move said applications out of the umbrella.
 import Config
 
-# Sample configuration:
-#
-#     config :logger, :console,
-#       level: :info,
-#       format: "$date $time [$level] $metadata$message\n",
-#       metadata: [:user_id]
-#
+config :air_shop, :airfranceklm,
+  endpoint: "https://ndc-rct.airfranceklm.com/passenger/distribmgmt/001448v01/EXT",
+  api_key: System.fetch_env!("AIR_FRANCE_API_KEY")
+
+config :air_shop, :british_airways,
+  endpoint: "https://test.api.ba.com/selling-distribution/AirShopping/V2",
+  api_key: System.fetch_env!("BRITISH_AIRWAYS_API_KEY")
+
+config :soap, :globals, version: "1.1"
