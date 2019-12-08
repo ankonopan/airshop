@@ -7,8 +7,7 @@ defmodule WebApi.Application do
 
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: WebApi.Worker.start_link(arg)
-      # {WebApi.Worker, arg}
+      {WebApi.Endpoint, port: 4001}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
