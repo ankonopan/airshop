@@ -8,6 +8,7 @@
 # configurations or dependencies per app, it is best to
 # move said applications out of the umbrella.
 import Config
+config :api, air_shop_process_name: AirShop
 
 config :air_shop, :airfranceklm,
   pool_size: 5,
@@ -22,3 +23,5 @@ config :air_shop, :british_airways,
   api_key: System.fetch_env!("BRITISH_AIRWAYS_API_KEY")
 
 config :soap, :globals, version: "1.1"
+
+import_config "#{Mix.env()}.exs"
