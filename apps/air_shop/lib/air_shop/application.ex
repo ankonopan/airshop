@@ -18,7 +18,8 @@ defmodule AirShop.Application do
            endpoint: Application.fetch_env!(:air_shop, :airfranceklm)[:endpoint],
            api_key: Application.fetch_env!(:air_shop, :airfranceklm)[:api_key]
          }
-       }}
+       }},
+      AirShop
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

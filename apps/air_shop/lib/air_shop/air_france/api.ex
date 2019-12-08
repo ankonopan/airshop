@@ -4,6 +4,24 @@ defmodule AirShop.AirFrance.API do
   @type error :: {:error, map}
   @type success :: {:ok, map}
 
+  @doc """
+  Find the cheapest offer for a given vector of departure, arrival and date.
+
+  Note:
+  Case 1: The API is called by commands `AirShop.AirFrance.API.cheapestOffer(departure, arrival, date)`
+  Depending on the amount of commands this API exposes I would refactor the module into a set of submodules each of them handling a single execution.
+  AirShop.AirFrance.API.CheapestOffer will be a case where only this action is executed.
+
+  defmodule AirShop.AirFrance.API.CheapestOffer do
+    def execute(departure, arrival, date) do
+      ...
+    end
+  end
+
+  Case 2: The API is called as it own server AirShop.AirFrance.API.call({:cheapest_offer, departure, arrival, date})
+
+  The separation of function into its own command modules makes a bit more sense here as the API GenServer will work as a dispatcher of API request.
+  """
   @spec cheapestOffer(String.t(), String.t(), String.t()) :: success | error
   def cheapestOffer(departure, arrival, date) do
     case call({:search, departure, arrival, date})
@@ -11,16 +29,17 @@ defmodule AirShop.AirFrance.API do
       {:ok, response} ->
         min =
           response
-          |> SweetXml.xpath(~x"//Offers/Offer"l,
+          |> SweetXml.xpath(~x"//AirlineOffers/Offer"l,
             total:
               ~x"./TotalPrice/DetailCurrencyPrice/Total/text()" |> transform_by(&List.to_float/1)
           )
+          |> Enum.map(fn %{total: t} -> t end)
           |> Enum.min()
 
-        {:ok, %{amount: min, airline: "AFKL"}}
+        {:ok, "AFKL", min}
 
-      error ->
-        error
+      {:error, error} ->
+        {:error, "AFKL", error}
     end
   end
 

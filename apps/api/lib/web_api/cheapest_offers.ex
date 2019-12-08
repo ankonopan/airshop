@@ -18,8 +18,15 @@ defmodule WebApi.CheapestOffer do
         |> put_resp_content_type("application/json")
         |> send_resp(502, message)
 
-      response ->
-        message = response |> Poison.encode!()
+      {:empty} ->
+        message = %{data: []} |> Poison.encode!()
+
+        conn
+        |> put_resp_content_type("application/json")
+        |> send_resp(200, message)
+
+      {:ok, response} ->
+        message = %{data: response} |> Poison.encode!()
 
         conn
         |> put_resp_content_type("application/json")

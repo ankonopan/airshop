@@ -2,12 +2,11 @@ ExUnit.start()
 
 defmodule AirShopMock do
   @moduledoc """
+
     Provides a mocked AirShop service that responds once with any data that was previously casted into it.
 
   """
-  def start_link(_response) do
-
-  end
+  use GenServer
 
   def init(state) do
     {:ok, state}
@@ -21,5 +20,3 @@ defmodule AirShopMock do
     {:noreply, response}
   end
 end
-
-
