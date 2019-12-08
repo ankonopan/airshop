@@ -10,7 +10,9 @@ defmodule AirShop.BritishAirways.API do
   end
 
   def handle_call({:cheapestOffer, departure, arrival, date}, _from, state) do
-    response = {:error, "BA", %{type: :unimplemented, errors: []}}
+    response =
+      AirShop.BritishAirways.Pool.execute({:search, departure, arrival, date})
+      |> AirShop.BritishAirways.Actions.CheapestOffer.process()
 
     {:reply, response, state}
   end

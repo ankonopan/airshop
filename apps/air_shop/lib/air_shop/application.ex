@@ -19,6 +19,17 @@ defmodule AirShop.Application do
            api_key: Application.fetch_env!(:air_shop, :airfranceklm)[:api_key]
          }
        }},
+      {AirShop.BritishAirways.Pool,
+       %{
+         pool: %{
+           size: Application.fetch_env!(:air_shop, :british_airways)[:pool_size],
+           max_overflow: Application.fetch_env!(:air_shop, :british_airways)[:pool_max_overflow]
+         },
+         worker: %{
+           endpoint: Application.fetch_env!(:air_shop, :british_airways)[:endpoint],
+           api_key: Application.fetch_env!(:air_shop, :british_airways)[:api_key]
+         }
+       }},
       AirShop.AirFrance.API,
       AirShop.BritishAirways.API,
       AirShop
