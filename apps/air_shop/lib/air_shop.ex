@@ -10,10 +10,12 @@ defmodule AirShop do
   end
 
   def handle_call({:cheapestOffer, departure, arrival, date} = req, _from, state) do
-    airlines_apis = [AirShop.AirFrance.API]
+    airlines_apis = [AirShop.AirFrance.API, AirShop.BritishAirways.API]
 
     result =
-      Task.async_stream(airlines_apis, fn api -> api.cheapestOffer(departure, arrival, date) end)
+      Task.async_stream(airlines_apis, fn api ->
+        GenServer.call(api, {:cheapestOffer, departure, arrival, date})
+      end)
       |> Enum.to_list()
       # Do something about errors here. Maybe there is a case for product Owning
       |> Enum.filter(fn r ->

@@ -1,10 +1,10 @@
-defmodule AirShop.Request do
+defmodule AirShop.XML do
   @doc ~S"""
   Converts a Map request into a an XML body envelope
 
   ## Examples
     iex> xml_map = {"CoreQuery", [], [{"OriginDestinations", [], ["test"]}]}
-    iex> AirShop.Request.encode(xml_map)
+    iex> AirShop.XML.encode(xml_map)
     "<CoreQuery><OriginDestinations>test</OriginDestinations></CoreQuery>"
   """
   def encode(request) do

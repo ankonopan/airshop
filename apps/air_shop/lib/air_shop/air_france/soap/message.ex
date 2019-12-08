@@ -1,9 +1,9 @@
-defmodule AirShop.AirFrance.Request do
+defmodule AirShop.AirFrance.SOAP.Message do
   @doc ~S"""
   Builds a Map representing a Envelope request to Air France KLM
 
   ## Examples
-    iex> xml_map = AirShop.AirFrance.Request.build("TXL", "LHR", "2020-01-01")
+    iex> xml_map = AirShop.AirFrance.SOAP.Message.build("TXL", "LHR", "2020-01-01")
     iex> |> XmlBuilder.generate
     iex> String.match?(xml_map, ~r"TXL(\s*)?</AirportCode>") && String.match?(xml_map, ~r"LHR(\s*)?</AirportCode>")
     true

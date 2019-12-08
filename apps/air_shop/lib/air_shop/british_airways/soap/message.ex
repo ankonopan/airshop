@@ -1,9 +1,9 @@
-defmodule AirShop.BritishAirways.Request do
+defmodule AirShop.BritishAirways.SOAP.Message do
   @doc ~S"""
   Builds a Map representing a Envelope request to British Airways
 
   ## Examples
-    iex> xml_map = AirShop.BritishAirways.Request.build("TXL", "LHR", "2020-01-01")
+    iex> xml_map = AirShop.BritishAirways.SOAP.Message.build("TXL", "LHR", "2020-01-01")
     iex> |> XmlBuilder.generate
     iex> String.match?(xml_map, ~r"TXL(\s*)?</AirportCode>") && String.match?(xml_map, ~r"LHR(\s*)?</AirportCode>")
     true

@@ -1,4 +1,4 @@
-defmodule AirShop.AirFrance.Application do
+defmodule AirShop.AirFrance.Pool do
   @moduledoc false
 
   use Supervisor
@@ -7,10 +7,10 @@ defmodule AirShop.AirFrance.Application do
     Supervisor.start_link(__MODULE__, init_arg, name: __MODULE__)
   end
 
-  @spec call(tuple) :: String.t()
-  def call(request_params) do
+  @spec execute(tuple) :: String.t()
+  def execute(request_params) do
     :poolboy.transaction(
-      AirShop.AirFrance,
+      AirFrance.WorkersPool,
       fn pid ->
         GenServer.call(pid, request_params)
       end,
@@ -20,8 +20,8 @@ defmodule AirShop.AirFrance.Application do
 
   defp poolboy_config(args) do
     [
-      {:name, {:local, AirShop.AirFrance}},
-      {:worker_module, AirShop.AirFrance.Worker},
+      {:name, {:local, AirFrance.WorkersPool}},
+      {:worker_module, AirShop.AirFrance.SOAP.Worker},
       {:size, args[:size]},
       {:max_overflow, args[:max_overflow]}
     ]
@@ -29,10 +29,14 @@ defmodule AirShop.AirFrance.Application do
 
   def init(args) do
     children = [
-      :poolboy.child_spec(AirShop.AirFrance, poolboy_config(args[:pool]), args[:worker])
+      :poolboy.child_spec(
+        AirFrance.WorkersPool,
+        poolboy_config(args[:pool]),
+        args[:worker]
+      )
     ]
 
-    opts = [strategy: :one_for_one, name: AirShop.AirFrance.Application]
+    opts = [strategy: :one_for_one, name: AirShop.AirFrance.Pool]
     Supervisor.init(children, opts)
   end
 end

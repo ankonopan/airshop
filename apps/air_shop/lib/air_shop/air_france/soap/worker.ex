@@ -1,5 +1,5 @@
-defmodule AirShop.AirFrance.Worker do
-  alias AirShop.AirFrance.Client
+defmodule AirShop.AirFrance.SOAP.Worker do
+  alias AirShop.AirFrance.SOAP.Client
   use GenServer
 
   def start_link(args) do

@@ -8,7 +8,7 @@ defmodule AirShop.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: AirShop.Worker.start_link(arg)
-      {AirShop.AirFrance.Application,
+      {AirShop.AirFrance.Pool,
        %{
          pool: %{
            size: Application.fetch_env!(:air_shop, :airfranceklm)[:pool_size],
@@ -19,6 +19,8 @@ defmodule AirShop.Application do
            api_key: Application.fetch_env!(:air_shop, :airfranceklm)[:api_key]
          }
        }},
+      AirShop.AirFrance.API,
+      AirShop.BritishAirways.API,
       AirShop
     ]
 
