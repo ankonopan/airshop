@@ -7,7 +7,7 @@ defmodule WebApi.Application do
 
   def start(_type, _args) do
     children = [
-      {WebApi.Endpoint, port: 4001}
+      {WebApi.Endpoint, port: 4000}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

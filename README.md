@@ -1,6 +1,6 @@
-# airshop
+# AirShop
 
-## **Air Ticket Aggregator**
+## **Air lines Ticket Aggregator**
 
 Search and aggregates data from two airline fares service providers to find the cheapest flight between two airport destinations.
 
@@ -24,8 +24,26 @@ The current design is logically divided as follow:
 
 ![Design](docs/app_design_0.1.0.png)
 
-## Test
+## Execution:
+
+In order to run the application you will need to export the API keys before into your environment:
+
+```
+export AIR_FRANCE_API_KEY="xyz..."
+export BRITISH_AIRWAYS_API_KEY="xyz..."
+
+```
+
+Then run the application as needed from the console:
+
+```
+mix run --no-halt
+```
+
+## Testing
 
 Run `mix test` from the umbrella folder.
 
 Only simple test are developed as the full SOAP API is not covered and some of the cases may or will result in complex abstraction after covering all the cases.
+
+

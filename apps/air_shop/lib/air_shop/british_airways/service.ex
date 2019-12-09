@@ -1,4 +1,4 @@
-defmodule AirShop.AirFrance.API do
+defmodule AirShop.BritishAirways.Service do
   use GenServer
 
   def start_link(init_arg) do
@@ -11,8 +11,8 @@ defmodule AirShop.AirFrance.API do
 
   def handle_call({:cheapestOffer, departure, arrival, date}, _from, state) do
     response =
-      AirShop.AirFrance.Pool.execute({:search, departure, arrival, date})
-      |> AirShop.AirFrance.Actions.CheapestOffer.process()
+      AirShop.BritishAirways.Pool.execute({:search, departure, arrival, date})
+      |> AirShop.BritishAirways.Actions.CheapestOffer.process()
 
     {:reply, response, state}
   end

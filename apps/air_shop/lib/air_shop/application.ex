@@ -30,8 +30,8 @@ defmodule AirShop.Application do
            api_key: Application.fetch_env!(:air_shop, :british_airways)[:api_key]
          }
        }},
-      AirShop.AirFrance.API,
-      AirShop.BritishAirways.API,
+      AirShop.AirFrance.Service,
+      AirShop.BritishAirways.Service,
       AirShop
     ]
 

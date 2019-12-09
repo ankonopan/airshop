@@ -9,8 +9,11 @@ defmodule AirShop do
     {:ok, stack}
   end
 
+  @doc """
+  Performs a concurrent request to all registered Airline Services to search for the cheapest offer.
+  """
   def handle_call({:cheapestOffer, departure, arrival, date} = req, _from, state) do
-    airlines_apis = [AirShop.AirFrance.API, AirShop.BritishAirways.API]
+    airlines_apis = [AirShop.AirFrance.Service, AirShop.BritishAirways.Service]
 
     result =
       Task.async_stream(airlines_apis, fn api ->
