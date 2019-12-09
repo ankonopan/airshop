@@ -22,6 +22,4 @@ config :air_shop, :british_airways,
   endpoint: "https://test.api.ba.com/selling-distribution/AirShopping/V2",
   api_key: System.fetch_env!("BRITISH_AIRWAYS_API_KEY")
 
-config :soap, :globals, version: "1.1"
-
 import_config "#{Mix.env()}.exs"

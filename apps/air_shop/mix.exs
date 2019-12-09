@@ -22,7 +22,7 @@ defmodule AirShop.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:soap, "~> 1.0"},
+      {:httpoison, "~> 1.6"},
       {:xml_builder, "~> 2.1.1"},
       {:sweet_xml, "~> 0.6.6"},
       {:poolboy, "~> 1.5.1"}
