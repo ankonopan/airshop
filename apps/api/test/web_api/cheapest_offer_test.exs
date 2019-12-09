@@ -11,7 +11,7 @@ defmodule WebApi.CheapestOfferTest do
   test "returns the cheapest Offer when the AirShop service is available" do
     {:ok, pid} = GenServer.start_link(AirShopMock, [], name: AirShopMock)
     IO.inspect("Mocked AirShop server started with pid: #{inspect(pid)}")
-    GenServer.cast(AirShopMock, {:respond_with, %{data: %{amount: 55.19, airline: "BA"}}})
+    GenServer.cast(AirShopMock, {:respond_with, {:ok, %{amount: 55.19, airline: "BA"}}})
 
     resp =
       conn(:get, "/?origin=TXL&destination=LHR&departureDate=2020-01-01")
