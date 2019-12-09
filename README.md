@@ -22,7 +22,7 @@ This application is designed as an umbrella project to divide the solution into 
 
 The current design is logically divided as follow:
 
-[]
+![Design](docs/app_design_0.1.0.png)
 
 ## Test
 
